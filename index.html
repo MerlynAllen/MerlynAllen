@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+
+<head>
+    <title>Hello</title>
+    <script src="./vue.global.js"></script>
+    <link rel="stylesheet" type="text/css" href="./global.css" />
+</head>
+
+<body>
+    <div id="app">
+        <panel>
+            <plate>
+                <portrait></portrait>
+            </plate>
+            <loading></loading>
+        </panel>
+    </div>
+
+</body>
+<script>
+    var app = Vue.createApp({
+    });
+    app.component(
+        'plate', {
+        template: `
+            <div id="plate_split"><div id="plate"><slot></slot></div></div>
+            `,
+        props: ['portrait']
+    });
+
+    app.component(
+        'panel', {
+        template: `<div id="panel"><slot></slot></div>`,
+        props: []
+    });
+    app.component(
+        'portrait', {
+        data() {
+            return {
+                portrait: "./img/azuki_cry.jpg",
+                portrait_hover: false,
+            }
+        },
+        template: `<img alt="" id="portrait" :src="portrait" @click="click" />            `,
+        props: ['portrait']
+    });
+
+    app.component(
+        'loading', {
+        data() {
+            return {
+                src: "./img/loading_.svg",
+            }
+        },
+        template: `<div id="loading_split"><img alt="" id="loading" :src="src" @click="click" /></div>`,
+        props: ['portrait']
+    });
+    app.mount('#app');
+</script>
+
+</html>
