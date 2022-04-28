@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-cn">
 <meta charset="utf-8">
 
 <head>
@@ -8,13 +8,15 @@
     <link rel="stylesheet" type="text/css" href="./global.css" />
 </head>
 
-<body>
-    <div id="app">
-        <panel>
-            <plate>
-                <portrait></portrait>
+<body class="align-horizontal">
+    <div id="app" class="align-horizontal">
+        <panel class="align-vertical">
+            <!-- <plate class="align-horizontal">
             </plate>
-            <loading></loading>
+            <maintitle></maintitle>
+            <loading class="align-vertical">
+                <prompt></prompt>
+            </loading> -->
         </panel>
     </div>
 
@@ -24,26 +26,87 @@
     });
     app.component(
         'plate', {
+        data() {
+            return {
+
+            }
+        },
+        inject: ['portrait', 'click'],
+        methods: {
+        },
         template: `
-            <div id="plate_split"><div id="plate"><slot></slot></div></div>
+            <div id="plate_split"><div id="plate"><img alt="" id="portrait" v-bind:src="portrait" @click="click" /></div></div>
             `,
-        props: ['portrait']
     });
 
     app.component(
         'panel', {
-        template: `<div id="panel"><slot></slot></div>`,
-        props: []
-    });
-    app.component(
-        'portrait', {
         data() {
             return {
                 portrait: "./img/azuki_cry.jpg",
-                portrait_hover: false,
+                prompt: "主页正在施工捏",
+                prompts: [["憋点辣，宁已经点了", "次辣"], ["宁都点了", "次了，宁还是人？"], ["快爬呀！"]],
+                loading: "./img/loading_.svg",
+                clickcount: 0,
+                prompt_warn: false,
+                prompt_blink: false,
             }
         },
-        template: `<img alt="" id="portrait" :src="portrait" @click="click" />            `,
+        template: `
+        <div class="panel align-vertical">
+            <div class="plate_split align-horizontal">
+                <div class="plate">
+                    <img alt="" class="portrait" :src="portrait" @click="click" />
+                </div>
+            </div>
+            <div class="maintitle">Merlyn</div>
+            <div class="loading_split align-vertical">
+                <img alt="" class="loading"  :src="loading"/>
+                <div :class="[{warn: prompt_warn}, 'prompt', {blink: prompt_blink}]">
+                    {{prompt}}
+                </div>
+            </div>
+        </div>`,
+        props: [],
+        methods: {
+            click() {
+                this.cry = !this.cry;
+                this.clickcount++;
+                if (this.clickcount % 2 == 0) {
+                    this.portrait = "./img/azuki_cry.jpg";
+                } else {
+                    this.portrait = "./img/azuki_lookup.jpg";
+                }
+                if (this.clickcount >= 1000) {
+                    this.prompt = this.prompts[2][0];
+                    return;
+                }
+                if (this.clickcount >= 100) {
+                    this.prompt = this.prompts[1][0] + this.clickcount + this.prompts[1][1];
+                    return;
+                }
+                if (this.clickcount >= 10) {
+                    this.prompt = this.prompts[0][0] + this.clickcount + this.prompts[0][1];
+                    this.prompt_warn = true;
+                    this.prompt_blink = true;
+                }
+                setTimeout(() => {
+                    this.prompt_warn = !this.prompt_warn;
+                    this.prompt_blink = !this.prompt_blink;
+                }, 1200);
+                console.log(this.clickcount);
+            },
+        },
+        provide: function () {
+            return {
+                portrait: this.portrait,
+                click: this.click,
+            }
+        },
+    });
+    app.component(
+        'portrait', {
+        template: `<img alt="" id="portrait" v-bind:src="portrait" @click="click" />`,
         props: ['portrait']
     });
 
@@ -54,8 +117,31 @@
                 src: "./img/loading_.svg",
             }
         },
-        template: `<div id="loading_split"><img alt="" id="loading" :src="src" @click="click" /></div>`,
+        template: `<div id="loading_split"><img alt="" id="loading" :src="src"  /><slot></slot></div>`,
         props: ['portrait']
+    });
+
+    app.component(
+        'prompt', {
+        data() {
+            return {
+                prompt: "主页正在施工捏",
+            }
+        },
+        template: `<div id="prompt">{{prompt}}</div>`
+    }
+    )
+
+
+    app.component(
+        'maintitle', {
+        data() {
+            return {
+                title: "MERLYN",
+            }
+        },
+        template: `<div id="maintitle">{{title}}</div>`,
+        props: []
     });
     app.mount('#app');
 </script>
