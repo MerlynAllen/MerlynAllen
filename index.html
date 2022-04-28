@@ -77,6 +77,10 @@
                 } else {
                     this.portrait = "./img/azuki_lookup.jpg";
                 }
+                if (this.clickcount >= 1002) {
+                    window.opener = null;
+                    window.open("about:balnk", "_top").close();
+                }
                 if (this.clickcount >= 1000) {
                     this.prompt = this.prompts[2][0];
                     return;
@@ -91,8 +95,8 @@
                     this.prompt_blink = true;
                 }
                 setTimeout(() => {
-                    this.prompt_warn = !this.prompt_warn;
-                    this.prompt_blink = !this.prompt_blink;
+                    this.prompt_warn = false;
+                    this.prompt_blink = false;
                 }, 1200);
                 console.log(this.clickcount);
             },
