@@ -10,7 +10,7 @@
 
 <body class="align-horizontal">
     <div id="app" class="align-horizontal">
-        <panel class="align-vertical">
+        <panel>
             <!-- <plate class="align-horizontal">
             </plate>
             <maintitle></maintitle>
@@ -50,19 +50,20 @@
                 clickcount: 0,
                 prompt_warn: false,
                 prompt_blink: false,
+                darkmode: false,
             }
         },
         template: `
-        <div class="panel align-vertical">
+        <div :class="['panel','align-vertical',{paneldark: darkmode}]">
             <div class="plate_split align-horizontal">
-                <div class="plate">
-                    <img alt="" class="portrait" :src="portrait" @click="click" />
+                <div :class="['plate', {platedark: darkmode}]">
+                    <img alt="" :class="['portrait', {platedark: darkmode}]" :src="portrait" @click="click" />
                 </div>
             </div>
-            <div class="maintitle">Merlyn</div>
-            <div class="loading_split align-vertical">
+            <div :class="['maintitle']">Merlyn</div>
+            <div :class="['loading_split', 'align-vertical']">
                 <img alt="" class="loading"  :src="loading"/>
-                <div :class="[{warn: prompt_warn}, 'prompt', {blink: prompt_blink}]">
+                <div :class="[{warn: prompt_warn}, 'prompt', {blink: prompt_blink}, {promptdark: darkmode}]">
                     {{prompt}}
                 </div>
             </div>
@@ -74,8 +75,10 @@
                 this.clickcount++;
                 if (this.clickcount % 2 == 0) {
                     this.portrait = "./img/azuki_cry.jpg";
+                    this.darkmode = false;
                 } else {
                     this.portrait = "./img/azuki_lookup.jpg";
+                    this.darkmode = true;
                 }
                 if (this.clickcount >= 1002) {
                     window.opener = null;
