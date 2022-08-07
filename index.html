@@ -4,7 +4,6 @@
 
 <head>
     <title>Hello</title>
-    <script src="https://unpkg.com/vue@next"></script>
     <link rel=" stylesheet" type="text/css" href="./global.css" />
 </head>
 
@@ -12,42 +11,47 @@
     <div id="app" class="align-horizontal">
         <panel>
         </panel>
+        <myfooter></myfooter>
     </div>
-
 </body>
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script>
-    var app = Vue.createApp({
-    });
+    var app = Vue.createApp({});
     app.component(
         'plate', {
-        data() {
-            return {
+            data() {
+                return {
 
-            }
-        },
-        inject: ['portrait', 'click'],
-        methods: {
-        },
-        template: `
+                }
+            },
+            inject: ['portrait', 'click'],
+            methods: {},
+            template: `
             <div id="plate_split"><div id="plate"><img alt="" id="portrait" v-bind:src="portrait" @click="click" /></div></div>
             `,
-    });
+        });
 
     app.component(
         'panel', {
-        data() {
-            return {
-                portrait: "./img/azuki_cry.jpg",
-                prompt: "主页正在施工捏",
-                prompts: [["憋点辣，宁已经点了", "次辣"], ["宁都点了", "次了，宁还是人？"], ["快爬呀！"]],
-                loading: "./img/loading_.svg",
-                clickcount: 0,
-                prompt_warn: false,
-                prompt_blink: false,
-                darkmode: false,
-            }
-        },
-        template: `
+            data() {
+                return {
+                    portrait: "./img/azuki_cry.jpg",
+                    prompt: "主页正在施工捏",
+                    prompts: [
+                        ["憋点辣，宁已经点了", "次辣"],
+                        ["宁都点了", "次了，宁还是人？"],
+                        ["快爬呀！"]
+                    ],
+                    loading: "./img/loading_.svg",
+                    clickcount: 0,
+                    total_click: 0,
+                    prompt_warn: false,
+                    prompt_blink: false,
+                    darkmode: false,
+                }
+            },
+            template: `
         <div :class="['panel','align-vertical',{paneldark: darkmode}]">
             <div class="plate_split align-horizontal">
                 <div :class="['plate', {platedark: darkmode}]">
@@ -58,92 +62,110 @@
             <div :class="['loading_split', 'align-vertical']">
                 <img alt="" class="loading"  :src="loading"/>
                 <div :class="[{warn: prompt_warn}, 'prompt', {blink: prompt_blink}, {promptdark: darkmode}]">
-                    {{prompt}}
+                    Page visited {{total_click}} times.
                 </div>
             </div>
         </div>`,
-        props: [],
-        methods: {
-            click() {
-                this.cry = !this.cry;
-                this.clickcount++;
-                if (this.clickcount % 2 == 0) {
-                    this.portrait = "./img/azuki_cry.jpg";
-                    this.darkmode = false;
-                } else {
-                    this.portrait = "./img/azuki_lookup.jpg";
-                    this.darkmode = true;
-                }
-                if (this.clickcount >= 1002) {
-                    window.opener = null;
-                    window.open("about:balnk", "_top").close();
-                }
-                if (this.clickcount >= 1000) {
-                    this.prompt = this.prompts[2][0];
-                    return;
-                }
-                if (this.clickcount >= 100) {
-                    this.prompt = this.prompts[1][0] + this.clickcount + this.prompts[1][1];
-                    return;
-                }
-                if (this.clickcount >= 10) {
-                    this.prompt = this.prompts[0][0] + this.clickcount + this.prompts[0][1];
-                    this.prompt_warn = true;
-                    this.prompt_blink = true;
-                }
-                setTimeout(() => {
-                    this.prompt_warn = false;
-                    this.prompt_blink = false;
-                }, 1200);
-                console.log(this.clickcount);
+            async mounted() {
+                await axios.get("https://counter.merlyn.workers.dev/")
+                    .then((response) => {
+                        this.total_click = response.data;
+                    });
             },
-        },
-        provide: function () {
-            return {
-                portrait: this.portrait,
-                click: this.click,
-            }
-        },
-    });
+            props: [],
+            methods: {
+                click() {
+                    this.cry = !this.cry;
+                    this.clickcount++;
+                    if (this.clickcount % 2 == 0) {
+                        this.portrait = "./img/azuki_cry.jpg";
+                        this.darkmode = false;
+                    } else {
+                        this.portrait = "./img/azuki_lookup.jpg";
+                        this.darkmode = true;
+                    }
+                    if (this.clickcount >= 1002) {
+                        window.opener = null;
+                        window.open("about:balnk", "_top").close();
+                    }
+                    if (this.clickcount >= 1000) {
+                        this.prompt = this.prompts[2][0];
+                        return;
+                    }
+                    if (this.clickcount >= 100) {
+                        this.prompt = this.prompts[1][0] + this.clickcount + this.prompts[1][1];
+                        return;
+                    }
+                    if (this.clickcount >= 10) {
+                        this.prompt = this.prompts[0][0] + this.clickcount + this.prompts[0][1];
+                        this.prompt_warn = true;
+                        this.prompt_blink = true;
+                    }
+                    setTimeout(() => {
+                        this.prompt_warn = false;
+                        this.prompt_blink = false;
+                    }, 1200);
+                    console.log(this.clickcount);
+                },
+            },
+            provide: function() {
+                return {
+                    portrait: this.portrait,
+                    click: this.click,
+                }
+            },
+        });
     app.component(
         'portrait', {
-        template: `<img alt="" id="portrait" v-bind:src="portrait" @click="click" />`,
-        props: ['portrait']
-    });
+            template: `<img alt="" id="portrait" v-bind:src="portrait" @click="click" />`,
+            props: ['portrait']
+        });
 
     app.component(
         'loading', {
-        data() {
-            return {
-                src: "./img/loading_.svg",
-            }
-        },
-        template: `<div id="loading_split"><img alt="" id="loading" :src="src"  /><slot></slot></div>`,
-        props: ['portrait']
-    });
+            data() {
+                return {
+                    src: "./img/loading_.svg",
+                }
+            },
+            template: `<div id="loading_split"><img alt="" id="loading" :src="src"  /><slot></slot></div>`,
+            props: ['portrait']
+        });
 
     app.component(
         'prompt', {
-        data() {
-            return {
-                prompt: "主页正在施工捏",
-            }
-        },
-        template: `<div id="prompt">{{prompt}}</div>`
-    }
+            data() {
+                return {
+                    prompt: "主页正在施工捏",
+                }
+            },
+            template: `<div id="prompt">{{prompt}}</div>`
+        }
     )
 
 
     app.component(
         'maintitle', {
-        data() {
-            return {
-                title: "MERLYN",
-            }
-        },
-        template: `<div id="maintitle">{{title}}</div>`,
-        props: []
-    });
+            data() {
+                return {
+                    title: "MERLYN",
+                }
+            },
+            template: `<div id="maintitle">{{title}}</div>`,
+            props: []
+        });
+    app.component(
+        'myfooter', {
+            data() {
+                return {
+                    github_link: "https://tiny.one/2p8ksnd2",
+                    telegram_link: "https://tiny.one/56vhurr8",
+                }
+            },
+            template: '<div id="myfooter"><a :href="github_link"><img class="footer-icon" src="img/github-brands.svg" :href="github_link"/></a><a :href="telegram_link"><img class="footer-icon" src="img/telegram-brands.svg" /></a></div>'
+        }
+
+    )
     app.mount('#app');
 </script>
 
