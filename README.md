@@ -1,24 +1,14 @@
-# xiaorui.li
+## Merlyn's Stats
+[![Anurag's GitHub stats](https://github-readme-stats.vercel.app/api?username=merlynallen&count_private=true&show_icons=true&theme=vue)](https://github.com/MerlynAllen/MerlynAllen)
 
-## Project setup
-```
-npm install
-```
+## Languages
+[![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=merlynallen&show_owner=true&show_icons=true&theme=vue&count_private=true&layout=compact&langs_count=6)](https://github.com/MerlynAllen/MerlynAllen)
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
 
-### Compiles and minifies for production
-```
-npm run build
-```
+## Repos
+[![Readme Card](https://github-readme-stats.vercel.app/api/pin/?username=merlynallen&repo=MerlynAllen&show_owner=true&show_icons=true&theme=vue)](https://github.com/MerlynAllen/MerlynAllen)
+[![Readme Card](https://github-readme-stats.vercel.app/api/pin/?username=merlynallen&repo=bilibili_danmaku&show_owner=true&show_icons=true&theme=vue)](https://github.com/MerlynAllen/bilibili_danmaku)
+[![Readme Card](https://github-readme-stats.vercel.app/api/pin/?username=merlynallen&repo=mcfireworks&show_owner=true&show_icons=true&theme=vue)](https://github.com/MerlynAllen/mcfireworks)
 
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+## Wakatime Stat
+[![willianrod's wakatime stats](https://github-readme-stats.vercel.app/api/wakatime?username=merlynallen&layout=compact)](https://github.com/anuraghazra/github-readme-stats)
