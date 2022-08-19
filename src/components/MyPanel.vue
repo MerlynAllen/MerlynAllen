@@ -42,7 +42,7 @@ export default {
     },
     async mounted() {
         const axios = require('axios').default;
-        await axios.get("https://counter.merlyn.workers.dev/")
+        await axios.get("https://api.merlyn.dev/statistics")
             .then((response) => {
                 this.total_click = response.data;
             });
