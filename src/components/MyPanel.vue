@@ -10,9 +10,10 @@
         </div>
         <div :class="['maintitle']">Merlyn</div>
         <div :class="['loading_split', 'align-vertical']">
-            <img alt="" class="loading" src="../img/loading_.svg" />
+            <img v-if="loading" alt="" class="loading" src="../img/loading_.svg" />
+            <img v-else alt="" class="enter" src="../img/angle-small-right.svg" @click="enter" />
             <div :class="[{ warn: prompt_warn }, 'prompt', { blink: prompt_blink }, { promptdark: darkmode }]">
-                Page visited {{ total_click }} times.
+                {{message}}
             </div>
         </div>
     </div>
@@ -38,6 +39,8 @@ export default {
             prompt_warn: false,
             prompt_blink: false,
             darkmode: false,
+            loading: false,
+            message: "Page is under construction...",
         }
     },
     // TODO: uncomment this
@@ -46,6 +49,7 @@ export default {
         await axios.get("https://api.merlyn.dev/statistics")
             .then((response) => {
                 this.total_click = response.data;
+                this.message = `Page is under construction... Visited ${this.total_click} times.`
             });
     },
     methods: {
@@ -83,6 +87,14 @@ export default {
                 this.prompt_blink = false;
             }, 1200);
             console.log(this.clickcount);
+        },
+        enter() {
+            this.loading = true;
+            this.message = "Loading...";
+            setTimeout(() => {
+                this.loading = false;
+                this.message = "Just kidding. You can't enter any page because there're no other pages.";
+            }, 5000);
         },
         provide: function () {
             return {
@@ -161,6 +173,24 @@ export default {
     height: 50px;
 }
 
+.enter {
+    height: 26px;
+    margin: 10px;
+    filter: invert(1) opacity(0.7);
+    border-radius: 50%;
+    border-width: 2px;
+    border-color: rgba(0, 0, 0, 0.5);
+    border-style: solid;
+    background-color: rgba(0, 0, 0, 0.0);
+    transition: all 0.5s ease-in-out;
+}
+
+.enter:hover {
+    filter: invert(1) opacity(1);
+    border-color: rgba(0, 0, 0, 1);
+    transform: rotate(360deg);
+    /* background-color: rgba(0, 0, 0, 0.5); */
+}
 .plate_split {
     margin: auto auto;
     width: 100%;

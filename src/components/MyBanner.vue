@@ -12,7 +12,11 @@ export default {
             blog_link: "https://b-i.li/blog"
         }
     },
-
+    methods: {
+        click() {
+            window.open(this.blog_link, "_blank");
+        }
+    },
 }
 </script>
 

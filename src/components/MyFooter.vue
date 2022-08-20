@@ -25,7 +25,8 @@ export default {
 .footer-icon {
     filter: invert(100%) opacity(0.5);
     height: 100%;
-    margin: 0% 1% 1% 1%;
+    margin: 0px 15px;
+        /* margin: 0% 1% 1% 1%; */
     transition: 0.5s ease-in-out;
 }
 
