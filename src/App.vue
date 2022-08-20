@@ -2,6 +2,7 @@
 
     <body class="align-horizontal">
         <div id="app" class="align-horizontal">
+            <MyBanner></MyBanner>
             <MyPanel>
             </MyPanel>
             <MyFooter></MyFooter>
@@ -12,11 +13,13 @@
 <script>
 import MyPanel from './components/MyPanel.vue'
 import MyFooter from './components/MyFooter.vue'
+import MyBanner from './components/MyBanner.vue';
 export default {
     name: 'App',
     components: {
         MyPanel,
-        MyFooter
+        MyFooter,
+        MyBanner
     }
 }
 </script>

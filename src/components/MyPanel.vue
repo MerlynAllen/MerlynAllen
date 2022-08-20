@@ -40,6 +40,7 @@ export default {
             darkmode: false,
         }
     },
+    // TODO: uncomment this
     async mounted() {
         const axios = require('axios').default;
         await axios.get("https://api.merlyn.dev/statistics")
