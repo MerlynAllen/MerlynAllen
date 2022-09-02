@@ -6,6 +6,9 @@
         <a :href="telegram_link">
             <img class="footer-icon" src="../img/telegram-brands.svg" />
         </a>
+        <a :href="email_link">
+            <img class="footer-icon" src="../img/email-svgrepo-com.svg" />
+        </a>
     </div>'
 </template>
 <script>
@@ -14,8 +17,9 @@ export default {
     props: {},
     data() {
         return {
-            github_link: "https://b-i.li/gh",
-            telegram_link: "https://b-i.li/tg",
+            github_link: "http://b-i.li/gh",
+            telegram_link: "http://b-i.li/tg",
+            email_link: "mailto:azuki@kkk.re"
         }
     },
 }
