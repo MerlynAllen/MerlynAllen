@@ -1,43 +1,36 @@
 <template>
     <div id="myfooter">
-        <a :href="github_link">
-            <img class="footer-icon" src="../img/github-brands.svg" :href="github_link" />
-        </a>
-        <a :href="telegram_link">
-            <img class="footer-icon" src="../img/telegram-brands.svg" />
-        </a>
-        <a :href="email_link">
-            <img class="footer-icon" src="../img/email-svgrepo-com.svg" />
-        </a>
-    </div>'
+    <footer-icon :target="links['github']" :src="icons['github']"/>
+    <footer-icon :target="links['telegram']" :src="icons['telegram']"/>
+    <footer-icon :target="links['email']" :src="icons['email']"/>
+    </div>
 </template>
 <script>
+import FooterIcon from './FooterIcon.vue';
 export default {
     name: 'MyFooter',
     props: {},
+    components: {
+        FooterIcon,
+    },
     data() {
         return {
-            github_link: "http://b-i.li/gh",
-            telegram_link: "http://b-i.li/tg",
-            email_link: "mailto:azuki@kkk.re"
+            links: {
+                "github": "http://b-i.li/gh",
+                "telegram": "http://b-i.li/tg",
+                "email": "mailto:azuki@kkk.re",
+            },
+            icons: {
+                "github": require('../img/github-brands.svg'),
+                "telegram": require('../img/telegram-brands.svg'),
+                "email": require('../img/email-svgrepo-com.svg'),
+            }
         }
     },
 }
 </script>
 
 <style>
-.footer-icon {
-    filter: invert(100%) opacity(0.5);
-    height: 100%;
-    margin: 0px 15px;
-        /* margin: 0% 1% 1% 1%; */
-    transition: 0.5s ease-in-out;
-}
-
-.footer-icon:hover {
-    filter: invert(100%) opacity(1);
-}
-
 #myfooter {
     position: fixed;
     left: auto;
