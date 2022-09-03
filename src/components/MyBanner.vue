@@ -1,6 +1,6 @@
 <template>
     <div id="mybanner">
-        <div class="banner-item">BLOG</div>
+        <div class="banner-item" @click="click">MERLYN SAID</div>
     </div>
 </template>
 <script>
@@ -9,12 +9,12 @@ export default {
     props: {},
     data() {
         return {
-            blog_link: "https://b-i.li/blog"
+            blog_link: "https://b-i.li/merlynsaid"
         }
     },
     methods: {
         click() {
-            window.open(this.blog_link, "_blank");
+            window.location = this.blog_link;
         }
     },
 }
