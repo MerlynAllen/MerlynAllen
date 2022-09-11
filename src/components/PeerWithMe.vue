@@ -18,7 +18,7 @@
       I use WireGuard as peering protocol.
       <span class="warn"
         >Port number of endpoints is the last five digits of your ASN.</span
-      >Please contact me by Email with folowing information.<br />
+      >Please contact me by Email with following information.<br />
       <br/>
       Your <u>ASN</u> + <u>Public IP</u> + <u>Port(default: 22380)</u> + <u>Public Key</u> + <u>IPv6 Link-Local Address</u> + <u>DN42 IPv4</u>
     </p>
@@ -96,7 +96,7 @@ p {
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
-  background-image: url("https://dn42.eu/dn42.svg");
+  background-image: url("../img/dn42.svg");
 }
 
 .warn {
