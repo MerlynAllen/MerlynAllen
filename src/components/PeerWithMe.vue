@@ -34,7 +34,7 @@ export default {
     return {
       peer_info: [
         {
-          name: "BGP1",
+          name: "Tokyo-BGP1",
           endpoint: "tokyo.merlyn.eu.org",
           pubkey: "iHBahOdFjLlSPhd12L+cp5wgIT/+eWl0mjnahi8yNQ0=",
           asn: "AS4242422380",
@@ -42,7 +42,7 @@ export default {
           ipv4: "172.22.125.254",
         },
         {
-          name: "BGP2",
+          name: "Los-Angeles-BGP2",
           endpoint: "la2.merlyn.eu.org",
           pubkey: "iHBahOdFjLlSPhd12L+cp5wgIT/+eWl0mjnahi8yNQ0=",
           asn: "AS4242422380",
