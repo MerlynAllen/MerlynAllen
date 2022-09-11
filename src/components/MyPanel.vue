@@ -12,7 +12,7 @@
         <div :class="['loading_split', 'align-vertical']">
             <img v-if="loading" alt="" class="loading" src="../img/loading_.svg" />
             <img v-else alt="" class="enter" src="../img/angle-small-right.svg" @click="enter" />
-            <div :class="[{ warn: prompt_warn }, 'prompt', { blink: prompt_blink }, { promptdark: darkmode }]">
+            <div :class="['prompt', { blink: prompt_blink }, { promptdark: darkmode }]">
                 {{message}}
             </div>
         </div>
@@ -45,12 +45,12 @@ export default {
     },
     // TODO: uncomment this
     async mounted() {
-        const axios = require('axios').default;
-        await axios.get("https://api.merlyn.dev/statistics")
-            .then((response) => {
-                this.total_click = response.data;
-                this.message = `Page is under construction... Visited ${this.total_click} times.`
-            });
+        // const axios = require('axios').default;
+        // await axios.get("https://api.merlyn.dev/statistics")
+        //     .then((response) => {
+        //         this.total_click = response.data;
+        //         this.message = `Page is under construction... Visited ${this.total_click} times.`
+        //     });
     },
     methods: {
         click() {
@@ -227,10 +227,6 @@ export default {
     align-items: center;
 }
 
-.warn {
-    color: rgb(255, 126, 126);
-    font-weight: 500;
-}
 
 .maintitle {
     font-size: 30px;
