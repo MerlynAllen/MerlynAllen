@@ -42,12 +42,13 @@ notify {
   backdrop-filter: blur(30px);
   -webkit-backdrop-filter: blur(30px);
   opacity: 1;
-  transition: all ease-in-out 0.5s;
+  transition:  all ease-in-out 0.3s, transform cubic-bezier(.93,1.95,.28,.52) 0.4s,;
   color: rgba(255, 255, 255, 0.7);
   border-color: rgba(170, 200, 255, 0.5);
   background-color: rgba(170, 200, 255, 0.2);
 }
 notify.hidden {
   opacity: 0;
+  transform: translateY(10px);
 }
 </style>
