@@ -33,14 +33,15 @@ export default {
   flex-wrap: wrap;
 }
 .peer-name {
+width: 100%;
   font-size: 15px;
-  font-weight: 400;
-  letter-spacing: 3px;
+  font-weight: 700;
+  letter-spacing: 1px;
   color: rgba(255, 255, 255, 0.5);
   text-align: center;
   padding: 8px 15px;
   margin: 10px 2px;
-  border-radius: 10px;
+  border-radius: 5px;
   border-width: 1px;
   border-style: solid;
   border-color: rgba(170, 200, 255, 0.5);

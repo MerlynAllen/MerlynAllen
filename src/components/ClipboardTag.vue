@@ -1,14 +1,16 @@
 <template>
-      <div :class='["tag", copied?"copied":1]' @click="copy"><slot></slot></div>
+      <div :class='["tag", {copied:copied}]' @click="copy"><slot></slot><div class="copy-icon"></div></div>
 </template>
 
 <script>
+import { globals } from '@/global';
 export default {
     name: 'ClipboardTag',
     props: ['data'],
     data() {
         return {
             copied: false,
+            globals
         }
     },
     methods: {
@@ -18,8 +20,9 @@ export default {
                 setTimeout(() => {
                     this.copied = false;
                 }, 2000);
+                this.globals.notify(`${this.data} copied to clipboard!`);
             }, () => {
-                alert("Copying to clipboard failed.");
+                this.globals.notify(`Copy failed!`);
             });
         },
     },
@@ -42,6 +45,9 @@ export default {
   border-color: rgba(255, 255, 255, 0.3);
   transition: 0.5s ease-in-out;
   background-color: rgba(255, 255, 255, 0);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .tag:hover {
@@ -55,4 +61,12 @@ export default {
   background-color: rgba(178, 255, 180, 0.3) !important;
 }
 
+.copy-icon {
+    background-image: url("@/img/copy-svgrepo-com.svg");
+    width: 13px;
+    height: 13px;
+    margin: 0 0 0 10px;
+    filter: invert(180);
+    opacity: 0.5;
+}
 </style>

@@ -6,12 +6,14 @@
     </div>
 </template>
 <script>
+import { globals } from '../global.js';
 export default {
     name: 'MyFooter',
     props: {},
     data() {
         return {
-            blog_link: "https://b-i.li/merlynsaid"
+            blog_link: "https://b-i.li/merlynsaid",
+            globals
         }
     },
     methods: {
@@ -19,10 +21,10 @@ export default {
             window.location = this.blog_link;
         },
         dn42() { 
-            this.$emit('now_showing', 'dn42');
+            globals.now_showing = 'dn42';
         },
         home() { 
-            this.$emit('now_showing', 'panel')
+            globals.now_showing = 'panel';
         }
     },
 }
