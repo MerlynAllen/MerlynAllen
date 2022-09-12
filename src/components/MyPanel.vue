@@ -45,12 +45,12 @@ export default {
     },
     // TODO: uncomment this
     async mounted() {
-        // const axios = require('axios').default;
-        // await axios.get("https://api.merlyn.dev/statistics")
-        //     .then((response) => {
-        //         this.total_click = response.data;
-        //         this.message = `Page is under construction... Visited ${this.total_click} times.`
-        //     });
+        const axios = require('axios').default;
+        await axios.get("https://api.merlyn.dev/statistics")
+            .then((response) => {
+                this.total_click = response.data;
+                this.message = `Page is under construction... Visited ${this.total_click} times.`
+            });
     },
     methods: {
         click() {
