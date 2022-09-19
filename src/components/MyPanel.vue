@@ -46,7 +46,7 @@ export default {
     // TODO: uncomment this
     async mounted() {
         const axios = require('axios').default;
-        await axios.get("https://api.merlyn.dev/statistics")
+        await axios.get("https://api.merlyn.dev/statistics", { withCredentials: true }) // set cookie
             .then((response) => {
                 this.total_click = response.data;
                 this.message = `Page is under construction... Visited ${this.total_click} times.`
